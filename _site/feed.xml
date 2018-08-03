@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-03T03:35:13+02:00</updated><id>http://localhost:4000/</id><title type="html">Aprendizaje profundo en español</title><subtitle>Soy un graduado en Ingeniería Informática por la Universidad de Coruña  y tengo un máster en Ingeniería Informática en la Carlos III de Madrid. Me gusta el mundo del Deep Learning aplicado a visión por computador, el Machine Learning y el desarrollo software.</subtitle><entry><title type="html">La familia R-CNN</title><link href="http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html" rel="alternate" type="text/html" title="La familia R-CNN" /><published>2018-08-04T17:26:13+02:00</published><updated>2018-08-04T17:26:13+02:00</updated><id>http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn</id><content type="html" xml:base="http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html">&lt;p&gt;La familia R-CNN&lt;/p&gt;</content><author><name></name></author><summary type="html">La familia R-CNN</summary></entry><entry><title type="html">Redes de neuronas convolucionales</title><link href="http://localhost:4000/computer/vision/and/deep/learning/2018/04/04/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Redes de neuronas convolucionales" /><published>2018-04-04T17:26:13+02:00</published><updated>2018-04-04T17:26:13+02:00</updated><id>http://localhost:4000/computer/vision/and/deep/learning/2018/04/04/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/computer/vision/and/deep/learning/2018/04/04/welcome-to-jekyll.html">&lt;p&gt;Actualmente existe un gran foco en investigar nuevas técnicas y tipos de &lt;em&gt;R-CNN&lt;/em&gt; que permitan detectar objetos con una alta precisión y en un tiempo muy reducido: sin ir más lejos, el primer tipo de &lt;em&gt;R-CNN&lt;/em&gt; fue publicado hace cuatro años por unos investigadores en la universidad de Berkeley y el último hace menos de un año por &lt;em&gt;Facebook&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;redes-de-neuronas-convolucionales-y-arquitecturas&quot;&gt;&lt;strong&gt;Redes de neuronas convolucionales y arquitecturas&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;En estos últimos años las &lt;strong&gt;redes de neuronas convolucionales&lt;/strong&gt; (redes convolucionales o simplemente &lt;em&gt;convnets&lt;/em&gt;) se han convertido en el &lt;em&gt;status quo&lt;/em&gt; del &lt;strong&gt;&lt;em&gt;Deep Learning&lt;/em&gt;&lt;/strong&gt; (aprendizaje profundo) y la visión por computador debido a la cantidad de nuevas librerías de inteligencia artificial que se están abriendo al público y al aumento de la capacidad de cómputo para problemas en este ámbito.&lt;/p&gt;
+
+&lt;p&gt;Partiendo del concepto de red de neuronas artificiales, una &lt;em&gt;convnet&lt;/em&gt; (red de neuronas convolucionales) es un tipo de red que se centra en sacar patrones a partir de imágenes para obtener conclusiones de las mismas (características de un objeto, de qué tipo es, si está realizando una acción, etc). Para ello se emplea una operación llamada &lt;strong&gt;convolución&lt;/strong&gt;, la cual se aplica a dos matrices para obtener una tercera que comparte características de ambas.&lt;/p&gt;
+
+&lt;p&gt;Las imágenes son traducidas a vectores o matrices para ser más fáciles de manipular por unos &lt;strong&gt;filtros&lt;/strong&gt; (también llamados &lt;em&gt;kernels&lt;/em&gt; o campos de recepción locales) que actúan como “lupas” buscando patrones o características (&lt;em&gt;features&lt;/em&gt;). Estas características se almacenarán en mapas de características (&lt;em&gt;feature maps&lt;/em&gt;), por lo que al añadir mapas de este tipo más &lt;strong&gt;características&lt;/strong&gt; sabrá reconocer la red. (NOTA: una característica puede ser una curva, una línea recta en determinada posición, una combinación de formas, etc).&lt;/p&gt;
+
+&lt;p&gt;Por lo tanto, en cada &lt;strong&gt;mapa de características&lt;/strong&gt; habrá &lt;em&gt;n&lt;/em&gt; neuronas donde, para cada una de ellas, se le aplicará una función de activación (&lt;em&gt;FA&lt;/em&gt;) al producto entre su &lt;em&gt;kernel&lt;/em&gt; y la entrada más el bias. La &lt;strong&gt;función de activación&lt;/strong&gt; corresponde al mismo concepto de &lt;em&gt;FA&lt;/em&gt; de una red neuronal, y en este caso se suele usar una llamada &lt;em&gt;ReLU&lt;/em&gt; (&lt;em&gt;Rectified Linear Unit&lt;/em&gt;) o variantes de la misma (&lt;em&gt;ELU, Leaky RELU, PReLU&lt;/em&gt;, etc).&lt;/p&gt;
+
+&lt;p&gt;Los &lt;strong&gt;pesos son todos iguales y están compartidos&lt;/strong&gt; por todas las neuronas en cada mapa de características, por lo que solo se aprenderá una característica en cada uno (otro pilar de las &lt;em&gt;convnets&lt;/em&gt;), ya que este tipo de redes neuronales se adapta muy bien a la traslación invariante de imágenes.
+Por ejemplo, si se detecta un oso panda en una imagen da igual que el oso esté inclinado, esté en la esquina superior o inferior de la foto: seguirá siendo una foto de un oso panda (*sexto capítulo del libro online.&lt;/p&gt;
+
+&lt;p&gt;A su vez, hay que tener en cuenta que el tamaño de cada mapa varía en función de los siguientes &lt;strong&gt;parámetros&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tamaño de la imágen de entrada o &lt;em&gt;input&lt;/em&gt;: normalmente viene dado por una altura multiplicada por una anchura (por ejemplo 48 x 34 píxeles), pero pueden existir redes convolucionales de &lt;em&gt;N&lt;/em&gt; dimensiones.&lt;/li&gt;
+  &lt;li&gt;Tamaño del &lt;em&gt;kernel&lt;/em&gt;: tamaño que tiene el campo de recepción local.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Stride&lt;/em&gt;: posiciones consecutivas que recorre el &lt;em&gt;kernel&lt;/em&gt; en la entrada.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Zero-Padding&lt;/em&gt;: opción que añade ceros en los bordes de la imágen para ajustar el &lt;em&gt;kernel&lt;/em&gt; cuando pasa por la frontera de la entrada.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/convolution.png&quot; alt=&quot;Arquitectura típica de una *CNN*. Fuente Wikipedia&quot; title=&quot;Arquitectura típica de una CNN. Fuente Wikipedia&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por ejemplo, si no hay &lt;strong&gt;Zero-Padding&lt;/strong&gt; y existe un &lt;em&gt;stride&lt;/em&gt; mínimo de 1, la salida para un &lt;em&gt;feature map&lt;/em&gt; vendrá dado por el tamaño en un eje de la imágen de entrada (por ejemplo la altura) menos el tamaño del &lt;em&gt;kernel&lt;/em&gt; en ese eje más uno. Esto es bastante importante porque se está indicando el nivel de detalle de las características y cuán rápido se quiere que se entrene la red (a más tamaño de &lt;em&gt;kernel&lt;/em&gt; y &lt;em&gt;strides&lt;/em&gt; pequeños más información se tendrá, pero le llevará más tiempo entrenar al clasificador).&lt;/p&gt;
+
+&lt;p&gt;Otro concepto importante que posee una red convolucional es el &lt;strong&gt;&lt;em&gt;pooling&lt;/em&gt;&lt;/strong&gt;. Esta capa lo que hace es simplificar el tamaño de la red (&lt;em&gt;subsampling&lt;/em&gt;), haciendo medias u obteniendo el máximo de una región para así reducir el tamaño del vector sin perder mucha información. Normalmente se coloca después de un par de capas convolucionales para ir gradualmente reduciendo el tamaño del vector final.
+No obstante, esta no es la única técnica para reducir el tamaño;  por ejemplo, para la segmentación semántica (se clasifican imágenes a nivel de píxel) se suele querer mantener el máximo de información posible, por tanto se aplica una &lt;em&gt;dilatación convolucional&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pero para entender más a fondo cómo funcionan este tipo de redes hay que estudiar el pilar de estas a nivel matemático, que es la operación matemática llamada &lt;strong&gt;convolución&lt;/strong&gt;. Así pues, el resultado para la neurona &lt;em&gt;j,k&lt;/em&gt; será el siguiente:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/for1.png&quot; alt=&quot;Ecuación de la red convolucional.&quot; title=&quot;Ecuación de la red convolucional.&quot; style=&quot;margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;La letra &lt;em&gt;sigma&lt;/em&gt; corresponde a la función de activación (generalmente una &lt;em&gt;RELU&lt;/em&gt;). La letra &lt;em&gt;b&lt;/em&gt; es el bias y los índices &lt;em&gt;l&lt;/em&gt; y &lt;em&gt;m&lt;/em&gt; corresponden a los ejes del &lt;em&gt;kernel&lt;/em&gt; empleado (en este caso está en dos dimensiones con tamaño &lt;em&gt;n&lt;/em&gt;). De esta manera se pasa el filtro por toda la porción de entrada que le toque y se almacena el valor en la neurona &lt;em&gt;j, k&lt;/em&gt;. Como se puede apreciar, se &lt;strong&gt;compartirán los pesos&lt;/strong&gt; que haya en el filtro con todas las neuronas de la capa al aplicarles el mismo filtro a todas ellas, cumplíendose el hecho de que por cada mapa de características solo se aprenderá una característica para todas las neuronas.&lt;/p&gt;
+
+&lt;p&gt;Aunque a esta operación se le aplica una convolución, realmente lo que se está haciendo es la operación de &lt;strong&gt;correlación cruzada&lt;/strong&gt; (salvo que se indique explicitamente que se está dando la vuelta al filtro).
+Dado un filtro &lt;em&gt;H&lt;/em&gt; y una función &lt;em&gt;F&lt;/em&gt; el resultado de aplicar correlación, denotado como &lt;img src=&quot;/figures/expr1.png&quot; alt=&quot;correlación.&quot; title=&quot;correlación.&quot; height=&quot;25px&quot; width=&quot;90px&quot; /&gt; es:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/for2.png&quot; alt=&quot;Operación de correlación.&quot; title=&quot;Operación de correlación.&quot; style=&quot;margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por otro lado, el resultado de aplicar una convolución, &lt;img src=&quot;/figures/expr2.png&quot; alt=&quot;convolución.&quot; title=&quot;convolución.&quot; height=&quot;25px&quot; width=&quot;90px&quot; /&gt;, es el siguiente:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/for3.png&quot; alt=&quot;Convolución.&quot; title=&quot;Convolución.&quot; style=&quot;margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Como se puede apreciar, la diferencia entre ambas operaciones reside en que en la segunda operación hay una matriz a la que se le cambia de orden los índices. Esto quiere decir que para el caso de la convolución el filtro se da la &lt;strong&gt;vuelta&lt;/strong&gt; completamente, consiguiendo así propiedades como la conmutativa o asociativa de una función lineal en filtros simétricos, lo que reduce considerablemente la complejidad computacional de calcular parámetros.&lt;/p&gt;
+
+&lt;p&gt;De ahí que se apliquen algunas veces convolucionales, porque de esta manera se pueden aplicar filtros base muy potentes como el &lt;strong&gt;filtro de Sobel&lt;/strong&gt; (un filtro simétrico), que permite marcar los bordes en una imagen usando gradientes a partir de las intensidades de sus píxeles. No obstante, estos filtros deterministas solo se aplican para casos concretos (por ejemplo, encontrar bordes verticales (eje de las x’s)): tener una red que aprende y actualiza sus pesos, como es una red convolucional, permite que se puedan encontrar otros bordes, como por ejemplo bordes con una rotación de 80 grados con respecto a un eje.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/sobel_filter.PNG&quot; alt=&quot;Ejemplo del resultado de hacer una convolución en una imagen con un filtro de Sobel&quot; title=&quot;Ejemplo del resultado de hacer una convolución en una imagen con un filtro de Sobel&quot; style=&quot;margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Con este fin, una red convolucional puede crear variantes de los filtros ya existentes (Sobel, Gaussiano, etc) y sacar las caracerísticas que le permitirán clasificar los objetos finales.&lt;/p&gt;
+
+&lt;p&gt;De todas formas, el que se aplique al final la operación de convolución o de correlación depende de la propia librería de aprendizaje automático que se esté empleando ya que, para el caso de este proyecto, &lt;em&gt;Tensorflow&lt;/em&gt; emplea por detrás correlación, por lo que sus redes convolucionales deberían llamarse realmente redes de neuronas de correlación cruzada. Esto sobretodo depende de lo que resulte más rentable a la hora de procesar los resultados, pero la base teórica es esta, la &lt;strong&gt;convolución&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;En las últimas capas de la &lt;strong&gt;arquitectura de la red&lt;/strong&gt; (por ejemplo dos capas convolucionales seguidas de un &lt;em&gt;max-pooling&lt;/em&gt;) se suele incorporar al menos una capa de neuronas completamente conectadas entre sí (perceptrón multicapa o  &lt;em&gt;fully connected layer&lt;/em&gt; (&lt;em&gt;FCL&lt;/em&gt;)) que se encargará de, a partir de las características obtenidas, elegir a qué clase pertenece un determinado objeto; aquí es donde se sacan las conclusiones de la red convolucional ya que se traduce en resultados visibles, como es encuadrar una imagen en una clase.&lt;/p&gt;
+
+&lt;p&gt;Lo malo de esta arquitectura es que se tendrá que transformar el vector obtenido de la &lt;strong&gt;extracción de características&lt;/strong&gt; al &lt;em&gt;input&lt;/em&gt; esperado por la &lt;em&gt;FCL&lt;/em&gt;, por lo que las imágenes que se pasan como conjunto de entrenamiento a la red deben de ser del mismo tamaño (existen variantes a esto como la red completamente convolucional (&lt;em&gt;fully convolutional network&lt;/em&gt;)) que sirve para obtener objetos a nivel de pixel).&lt;/p&gt;
+
+&lt;p&gt;También hay muchos tipos de arquitecturas, de las cuales las más famosas son las siguientes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;AlexNet&lt;/strong&gt;: de las primeras arquitecturas en salir a la luz y de la que se parte generalmente para comparar.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;VGG&lt;/strong&gt;: tiene varias versiones en función de las capas incluidas. Ver siguiente figura.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/vgg16.png&quot; alt=&quot;Arquitectura VGG.&quot; title=&quot;Arquitectura VGG.&quot; style=&quot;margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;GoogleLeNet&lt;/strong&gt;: introduce el concepto de &lt;strong&gt;módulo &lt;em&gt;inception&lt;/em&gt;&lt;/strong&gt;, que consiste en añadir filtros paralelos concatenados al final de un número de capas para recabar más características, incluyendo filtros 1x1 para no aumentar la complejidad computacional.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/figures/inception_implement.png&quot; alt=&quot;Arquitectura Inception.&quot; title=&quot;Arquitectura Inception.&quot; style=&quot;margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;ResNet&lt;/strong&gt;: es una red que permite añadir muchas más capas a la red mediante una &lt;strong&gt;capa residual&lt;/strong&gt; que mantiene actualizadas a las capas posteriores que vengan; generalmente en las &lt;em&gt;convnets&lt;/em&gt; si contienen un cierto número de capas pueden empezar a dar peores resultados o a estancarse, pero con esta idea de capa residual se puede llegar a mejorar las precisiones sin temor a incluir más capas.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Existen otras arquitecturas actualmente, algunas muy nuevas o recientes, o que son combinaciones de otras ya existentes (&lt;strong&gt;Inception&lt;/strong&gt; = &lt;em&gt;ResNet + GoogleLeNet&lt;/em&gt;) o que simplemente se les añaden nuevos parámetros para crear nuevas versiones de las mismas.&lt;/p&gt;
+
+&lt;p&gt;Por supuesto los usos de este tipo de redes no solo abarcan indicar qué tipo de objeto aparece en una imagen: se pueden usar para la detección de objetos, segmentación semántica, búsqueda de similitudes… hasta se puede emplear junto a una &lt;em&gt;NLP&lt;/em&gt; (&lt;em&gt;Neuro Linguistic Programming&lt;/em&gt;) para describir lo que se visualiza en una imagen.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>

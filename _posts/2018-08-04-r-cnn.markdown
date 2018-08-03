@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "La familia R-CNN"
+date:   2018-08-04 17:26:13 +0200
+categories: computer vision and deep learning
+---
+
+La familia R-CNN
