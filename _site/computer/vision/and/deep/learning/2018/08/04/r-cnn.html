@@ -7,15 +7,15 @@
 <meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="La familia R-CNN" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="La familia R-CNN" />
-<meta property="og:description" content="La familia R-CNN" />
+<meta name="description" content="Soy un graduado en Ingeniería Informática por la Universidad de Coruña y tengo un máster en Ingeniería Informática en la Carlos III de Madrid. Me gusta el mundo del Deep Learning aplicado a visión por computador, el Machine Learning y el desarrollo software." />
+<meta property="og:description" content="Soy un graduado en Ingeniería Informática por la Universidad de Coruña y tengo un máster en Ingeniería Informática en la Carlos III de Madrid. Me gusta el mundo del Deep Learning aplicado a visión por computador, el Machine Learning y el desarrollo software." />
 <link rel="canonical" href="http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html" />
 <meta property="og:url" content="http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html" />
 <meta property="og:site_name" content="Aprendizaje profundo en español" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-08-04T17:26:13+02:00" />
 <script type="application/ld+json">
-{"description":"La familia R-CNN","@type":"BlogPosting","url":"http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html","headline":"La familia R-CNN","dateModified":"2018-08-04T17:26:13+02:00","datePublished":"2018-08-04T17:26:13+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html"},"@context":"http://schema.org"}</script>
+{"description":"Soy un graduado en Ingeniería Informática por la Universidad de Coruña y tengo un máster en Ingeniería Informática en la Carlos III de Madrid. Me gusta el mundo del Deep Learning aplicado a visión por computador, el Machine Learning y el desarrollo software.","@type":"BlogPosting","url":"http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html","headline":"La familia R-CNN","dateModified":"2018-08-04T17:26:13+02:00","datePublished":"2018-08-04T17:26:13+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/computer/vision/and/deep/learning/2018/08/04/r-cnn.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Aprendizaje profundo en español" /></head>
 <body><header class="site-header" role="banner">
@@ -45,7 +45,49 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>La familia R-CNN</p>
+    
+<p>Las redes convolucionales basadas en regiones (<strong>R-CNN</strong>) se han convertido en unas de las arquitecturas más importantes en detección de objetos, junto a otras procedentes de otros grupos de investigación como <em>YOLO</em> o <em>SSD</em>.
+En la actualidad se han llegado a desarrollar diferentes tipos de <em>R-CNN</em>, cada uno más rápido que el anterior pero en general con resultados parecidos.</p>
+
+<p>A continuación se explicará resumidamente las cuatro arquitecturas más conocidas:</p>
+
+<h1 id="el-origen-de-r-cnn">El origen de R-CNN</h1>
+
+<p>Hace aproximadamente unos cuatro años apareció la <strong>primera arquitectura</strong> basada en redes convolucionales que resuelve la problemática de buscar objetos dentro de imágenes (<em>objec-detection</em>); el grupo de investigadores formado por R. Girshick, J. Donahue, T. Darrell y J. Malik publicó un documento en el que presentaban la idea de redes convolucionales basadas en regiones aplicado al reconocimiento de patrones en la visión por computadora.</p>
+
+<p>El funcionamiento de esta arquitectura es bastante fácil de entender; primero se parte de una red convolucional entrenada para las distintas clases de objetos que se quieren clasificar. Posteriormente, se aplica este modelo ya entrenado en las regiones generadas por un <em>algoritmo de proposición de zonas de interés</em> (o <em>RoI</em>). Las salidas son procesadas por un SVM (<em>Support Vector Machine</em>) y un <em>regresor lineal</em> para ajustar los bordes de las zonas propuestas y clasificarlas.</p>
+
+<p><img src="/figures/r-cnn.png" alt="Arquitectura de una R-CNN." title="Arquitectura de una R-CNN." style="margin: 0 auto; display: block;" /></p>
+
+<p>El problema de este modelo es que para imágenes con un gran tamaño (por ejemplo 1024x1024) el tiempo de ejecución para encontrar objetos en una imágen de prueba suele llegar al minuto ya que por cada región propuesta por el <em>RoI</em> (desde 2000 hasta más de 10000) hay que ajustar el tamaño al esperado en la entrada de la <em>convnet</em> y ejecutarlo.</p>
+
+<h1 id="fast-r-cnn">Fast R-CNN</h1>
+
+<p>El siguiente tipo de <em>R-CNN</em> busca mejorar esos tiempos dándole un nuevo sentido a la aplicación de la <em>CNN</em>: en lugar de entrenar con imágenes de solo las clases, esta vez se pasa la imagen completa que contiene las diferentes clases/objetos y se indica con <strong>anotaciones</strong> a la red en qué coordenadas se encuentran estas para que esta red entrene. De esta manera ya no habrá que pasar <em>n</em> veces el modelo entrenado en función de las regiones encontradas, mejorando así los tiempos con una duración de ejecución de apenas unos segundos.</p>
+
+<p><img src="/figures/fast.png" alt="Funcionamiento de Fast R-CNN." title="Funcionamiento de Fast R-CNN." style="margin: 0 auto; display: block;" /></p>
+
+<p>Pero pese a parecer a primera vista mucho mejor que la arquitectura original, sigue existiendo un problema de tiempos a la hora de aplicar el <em>RoI</em> en <em>Fast R-CNN</em> ya que, aunque solo hay una red convolucional que entrena sobre toda la imágen, se siguen empleando <em>RoI</em> en la salida del modelo, cosa que puede generar unos segundos de procesamiento en conjuntos de entrenamiento con imágenes de gran tamaño (con altura y/o anchura superior a 800 píxeles) o clases con muchas características (un coche, una persona, etc).</p>
+
+<h1 id="faster-r-cnn">Faster R-CNN</h1>
+
+<p>Para mejorar los tiempos de la anterior arquitectura (concretamente mejorar la duración de los algoritmos de <em>RoI</em>) se propuso introducir una red neuronal especial que se encargase de encontrar objetos: una <strong>red de proposición de regiones</strong> (<em>RPN</em> las siglas en inglés).</p>
+
+<p><img src="/figures/faster.png" alt="Funcionamiento de Faster R-CNN." title="Funcionamiento de Faster R-CNN." style="margin: 0 auto; display: block;" /></p>
+
+<p>Esta red se encarga de indicar si hay una alta probabilidad de encontrar algún objeto en <em>k</em> cajas de anclaje (<em>anchor box</em>), en función del tamaño de la capa y el filtro a aplicar. La información dada por la <em>RPN</em> es transmitida al módulo casi similar de la arquitectura de <em>Fast R-CNN</em>, el cual que se encargará de clasificar cada región propuesta.</p>
+
+<p>De esta manera, mientras el algoritmo original de redes convolucionales basadas en regiones suele tardar casi un minuto en el proceso de detección de una imagen, <em>Fast R-CNN</em> lo reduce a apenas unos segundos y <em>Faster R-CNN</em> a unas centésimas de segundo. No obstante, la precisión de todas las arquitectura no difiere mucho unas de otras, como muestra la siguiente figura:</p>
+
+<p><img src="/figures/comparativa-rcnn.png" alt="Comparativa de la familia R-CNN." title="Comparativa de la familia R-CNN." style="margin: 0 auto; display: block;" /></p>
+
+<h1 id="mask-r-cnn">Mask R-CNN</h1>
+
+<p>Hasta ahora se ha hablado de arquitecturas que permiten detectar objetos en imágenes: se dan <em>n</em> candidatos con coordenadas y una probabilidad de que ese candidato pertenezca a una de las <em>k</em> clases.</p>
+
+<p>La arquitectura de <em>Mask R-CNN</em> avanza un nivel más y se introduce en el campo de la <strong>segmentación de instancias/imágenes</strong>: extiende <em>Faster R-CNN</em> a nivel de píxel con una <em>máscara</em>, por lo que a parte de tener rectángulos de coordenadas y la probabilidad de ser una clase, también indicará en la imágen los píxeles que ocupa uno o más objetos. Segmentación de instancias tiene diferente significado a la <strong>segmetación semántica</strong>, ya que aunque ambos tienen un objetivo similar, la segmentación semántica busca clasificar un segmento mientras la segmentación de imágenes solo indicará en la imagen qué píxeles ocupa ese objeto, sin llegar a decir de qué tipo o a qué clase pertenece.</p>
+
+<p><img src="/figures/mask_example.png" alt="Ejemplo de segmentación de imágenes y detección de objetos con Mask R-CNN." title="Ejemplo de segmentación de imágenes y detección de objetos con Mask R-CNN." style="margin: 0 auto; display: block;" /></p>
 
   </div><a class="u-url" href="/computer/vision/and/deep/learning/2018/08/04/r-cnn.html" hidden></a>
 </article>
@@ -64,7 +106,7 @@
           <li class="p-name">Aprendizaje profundo en español</li><li><a class="u-email" href="mailto:andres.cardosoc12@gmail.com">andres.cardosoc12@gmail.com</a></li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/acardoco"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">acardoco</span></a></li><li><a href="https://www.twitter.com/ancaco12"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">ancaco12</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/acardoco"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">acardoco</span></a></li><li><a href="https://www.twitter.com/acardosoc12"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">acardosoc12</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">
