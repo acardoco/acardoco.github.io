@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Polígonos arrastrables en GoogleMaps | acardoco’s blog</title>
+<meta name="generator" content="Jekyll v3.7.3" />
+<meta property="og:title" content="Polígonos arrastrables en GoogleMaps" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="En GoogleMaps se pueden crear figuras o formas, como marcadores, polígonos, caminos … No obstante, no aparece la opción de editar los vértices de un polígono o cualquier otra forma que se desee dibujar en el mapa. Por ello, se va a describir resumidamente una solución a esta problemática para el caso de un polígono estándar;" />
+<meta property="og:description" content="En GoogleMaps se pueden crear figuras o formas, como marcadores, polígonos, caminos … No obstante, no aparece la opción de editar los vértices de un polígono o cualquier otra forma que se desee dibujar en el mapa. Por ello, se va a describir resumidamente una solución a esta problemática para el caso de un polígono estándar;" />
+<link rel="canonical" href="http://localhost:4000/android/and/mapview/2018/04/04/arrastrar-poligono.html" />
+<meta property="og:url" content="http://localhost:4000/android/and/mapview/2018/04/04/arrastrar-poligono.html" />
+<meta property="og:site_name" content="acardoco’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-04-04T17:26:13+02:00" />
+<script type="application/ld+json">
+{"description":"En GoogleMaps se pueden crear figuras o formas, como marcadores, polígonos, caminos … No obstante, no aparece la opción de editar los vértices de un polígono o cualquier otra forma que se desee dibujar en el mapa. Por ello, se va a describir resumidamente una solución a esta problemática para el caso de un polígono estándar;","@type":"BlogPosting","url":"http://localhost:4000/android/and/mapview/2018/04/04/arrastrar-poligono.html","headline":"Polígonos arrastrables en GoogleMaps","dateModified":"2018-04-04T17:26:13+02:00","datePublished":"2018-04-04T17:26:13+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/android/and/mapview/2018/04/04/arrastrar-poligono.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="acardoco's blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">acardoco&#39;s blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Polígonos arrastrables en GoogleMaps</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-04-04T17:26:13+02:00" itemprop="datePublished">Apr 4, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>En <em>GoogleMaps</em> se pueden crear figuras o formas, como marcadores, polígonos, caminos … No obstante, no aparece la opción de editar los vértices de un polígono o cualquier otra forma que se desee dibujar en el mapa. Por ello, se va a describir resumidamente una solución a esta problemática para el caso de un polígono estándar;</p>
+
+<p>Para conseguir cambiar la forma de un <strong>polígono</strong> se tiene que implementar un mecanismo que permita, a partir de la figura, mover los vértices y actualizarlos en la vista de la interfaz. Como se ha visto, ninguna de las APIs de mapas para Android permite arrastrar los vértices de un polígono creado, por lo que se tiene que hacer unos ajustes para conseguirlo, los cuales se detallan a continuación:</p>
+
+<ol>
+  <li>
+    <p>Primero hay que preparar el <em>MapView</em> con los parámetros que se deseen desde la función <strong><em>OnMapReady()</em></strong>: se dibuja el polígono con las coordenadas de los vértices deseados, se fija la cámara en él, se establece la vista deseada, etc.</p>
+  </li>
+  <li>
+    <p>A continuación, se dibuja un polígono inicial de partida (como se muestra en la figura de abajo), el cual tendrá <strong>marcadores</strong> (objetos <em>Java</em> que poseen la latitud y longitud) por cada vértice que la figura posea.
+<img src="/figures/interfaz_editar.png" alt="Polígono inicial." title="Polígono inicial." style="margin: 0 auto; display: block;" height="500px" width="350px" /></p>
+  </li>
+  <li>
+    <p>Posteriormente, se crea un <strong><em>Listener</em></strong> especial para cada marcador, llamado <em>OnMarkerDragListener()</em>, que permite estar al tanto en caso de arrastrar uno de ellos. Esta opción no aparece con figuras más complejas que un marcador simple.</p>
+  </li>
+  <li>
+    <p>Para conseguir el efecto de <strong>arrastrar los vértices</strong> del polígono se tiene que implementar la función del <em>Listener</em> llamada <em>OnMarkerDrag()</em>, que permite ejecutar sentencias mientras se desplaza el marcador por la pantalla. En la siguiente figura se muestra cómo quedaría el polígono arrastrado:</p>
+  </li>
+</ol>
+
+<p><img src="/figures/interfaz_editar_arrastrar.png" alt="Polígono final." title="Polígono final." style="margin: 0 auto; display: block;" height="500px" width="350px" /></p>
+
+<p>Mientras el usuario arrastra el vértice y no lo suelte, la función anterior actualiza el <em>status</em> del marcador cada pocos <strong>milisegundos</strong>, aspecto que se aprovecha para borrar el polígono actual y luego crear uno nuevo con la posición del vértice actual; en el instante tiempo donde se encuentra actualmente el marcador se dibuja uno nuevo partiendo del anterior, de tal manera que el nuevo polígono dibujado queda con las coordenadas sin inmutar de los vértices no seleccionados más el vértice que se está desplazando.</p>
+
+<p>Existen otras funciones como <strong><em>OnMarkerDragStart()</em></strong>, que actúa solo cuando el usuario inicia empieza a arrastrar el marcador (es parecida a la función <em>OnClick()</em>), y <strong><em>OnMarkerDragEnd()</em></strong>. Esta última actúa cuando el usuario levanta el dedo de su selección y es útil para, por ejemplo, persistir los cambios de la nueva posición del vértice arrastrado.</p>
+
+  </div><a class="u-url" href="/android/and/mapview/2018/04/04/arrastrar-poligono.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">acardoco&#39;s blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">acardoco&#39;s blog</li><li><a class="u-email" href="mailto:andres.cardosoc12@gmail.com">andres.cardosoc12@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/acardoco"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">acardoco</span></a></li><li><a href="https://www.twitter.com/acardosoc12"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">acardosoc12</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>https://twitter.com/acardosoc12</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Soy un graduado en Ingeniería Informática por la Universidad de Coruña  y tengo un máster en Ingeniería Informática en la Carlos III de Madrid. Me gusta el mundo del Deep Learning aplicado a visión por computador, el Machine Learning y el desarrollo software.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

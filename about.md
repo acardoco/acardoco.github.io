@@ -12,3 +12,5 @@ Mi mayor logro ha sido obtener una propuesta como candidato a **matrícula de ho
 
 Puedes echar un ojo al resto de proyectos en los que he estado involucrado en el
 [link para mi cuenta de github](https://github.com/acardoco).
+
+[Mi cuenta de twitter](https://twitter.com/acardosoc12)

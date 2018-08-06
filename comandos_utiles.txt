@@ -1,0 +1,14 @@
+
+# Para ejecutar en local
+
+>> bundle exec jekyll serve
+
+# Para subir los cambios a github 
+
+>> bundle update
+
+# Secuencia de git
+
+>> git add * -f
+>> git commit -m "familia r-cnn"
+>> git push -u origin master
