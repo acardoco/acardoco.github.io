@@ -26,11 +26,11 @@ _Madrid, Spain_
 **Data Scientist**
 
 - Co-leading the improvement of a network traffic analytics product (FERMIN) with new AI-based features for cybersecurity.
-  - **Technologies**: Python, Grafana, C, etc.
+  - **Technologies**: Python, Grafana, C, Linux, etc.
   - **Algorithms and Techniques**: MLP-based (LSTM, CNN), clustering, LightGBM, etc.
 
 - **Network Analysis in Migration of CPDs**: Conducted analysis for a major Mexican bank.
-  - **Technologies**: Python, Grafana, Elastic, etc.
+  - **Technologies**: Python, Grafana, Elastic, Linux, etc.
 
 ---
 
