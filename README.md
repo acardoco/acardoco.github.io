@@ -87,22 +87,26 @@ _University Carlos III, Madrid, Spain_
 
 ## Events and Self-Projects
 
-- **Hackathon T3chfest Carlos III 2018**  
-  Developed a mobile application to detect benign skin spots using an image classifier with IBM cloud technology.
-  - **Technologies**: IBM Computer Vision Cloud, AndroidStudio, Python
-  - [Project Link](#)
+- **Silver Medal Kaggle Competition 2023**  
+  Earned my first silver medal on Kaggle! My solution combined a DeBERTaV3-large model with additional smaller models (RoBERTa, DeBERTaV3-base) and utilized Optuna for hyperparameter optimization. I also integrated an ensemble of XGBoost, CatBoost, and LightGBM models with a 4-fold cross-validation approach.
+  - **Technologies**: Python, DeBERTaV3, XGBoost, LightGBM, CatBoost
+  - [Code Link](https://github.com/acardoco/kaggle_commonLit)
+  - [Credential](https://www.kaggle.com/certification/competitions/ancaco12/commonlit-evaluate-student-summaries)
 
 - **Second Place in Hackathon: HACK THAT STARTUP**  
   Achieved silver medal in a Data Science challenge, solving machine learning tasks individually and in teams.
   - **Technologies**: Colab, Python, Scikit, Keras, Seaborn
-  - [Code Link](#)
+  - [Code Link](https://github.com/acardoco/hackthatstartup_nuwe)
 
 - **Master’s Thesis**  
   Developed a mobile app for content editing and uploading to OpenStreetMap using a deep learning module for computer vision.  
   Grade: 10/10.
   - **Technologies**: Python, TensorFlow, Keras, OpenCV, Java, AndroidStudio, OpenStreetMap.
   - **Algorithms and Techniques**: Region-based CNN, Hough Circles, Selective Search.
-  - [Client Project Link](#) | [AI Module Project Link](#)
+  - [Client Project Link](https://github.com/acardoco/GeoLearning-client) | [AI Module Project Link](https://github.com/acardoco/GeoLearning)
 
-- **Bachelor’s Thesis**  
-  Created a web app for information gathering and user display from Ope
+## Additinal links:
+- **[Github](https://github.com/acardoco)**
+- **[Kaggle](https://www.kaggle.com/ancaco12)**
+- **[Linkedin](https://www.linkedin.com/in/andrés-cardoso-250a24112/)**
+- **[LeetCode](https://leetcode.com/u/andreto12/)**
